@@ -1,3 +1,7 @@
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/JetBrainsMono-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/JetBrainsMono-SemiBold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/JetBrainsMono-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
 :root {
   --bg: #07090c;
   --term: #0b0f14;
@@ -186,6 +190,9 @@ a:hover, a:focus-visible { color: var(--orange); }
 .fetch .info { min-width: 0; }
 .fetch .k { color: var(--orange); font-weight: 600; display: inline-block; min-width: 11ch; }
 .swatch { display: inline-block; width: 1.6em; height: 1em; vertical-align: middle; }
+.sw-red { background: var(--red); } .sw-yellow { background: var(--yellow); } .sw-green { background: var(--green); }
+.sw-blue { background: var(--blue); } .sw-purple { background: var(--purple); } .sw-orange { background: var(--orange); }
+.sw-fg { background: var(--fg); }
 
 /* help */
 .help { display: grid; grid-template-columns: max-content 1fr; column-gap: 2em; }
@@ -241,3 +248,28 @@ a:hover, a:focus-visible { color: var(--orange); }
 @media (prefers-reduced-motion: reduce) {
   .cursor { animation: none; }
 }
+
+/* 404 */
+.notfound { height: auto; }
+.notfound .screen { cursor: default; }
+
+/* ---------- 3D mode (scene.js) ---------- */
+body.three { display: block; padding: 0; overflow: hidden; }
+body.three .gl { position: fixed; inset: 0; z-index: 0; display: block; }
+body.three .css3d { position: fixed !important; inset: 0; z-index: 1; pointer-events: none; }
+body.three .term { max-width: none; border: 0; border-radius: 0; box-shadow: none; }
+body.three .term.wide { cursor: zoom-in; }
+body.three .term.wide * { pointer-events: none; }
+
+.scene-ui {
+  position: fixed; right: 16px; bottom: 16px; z-index: 2;
+  display: flex; gap: 8px;
+}
+.scene-ui button {
+  font: 12px/1 "JetBrains Mono", ui-monospace, monospace;
+  color: var(--fg); background: var(--bar);
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 8px 12px; cursor: pointer; opacity: .85;
+}
+.scene-ui button:hover { opacity: 1; color: var(--orange); }
+.scene-ui[hidden], .scene-ui button[hidden] { display: none; }

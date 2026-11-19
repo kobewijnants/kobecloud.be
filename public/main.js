@@ -51,6 +51,8 @@
       ['neofetch', 'the homelab'],
       ['cat contact.txt', 'how to reach me'],
       ['theme [light|dark]', 'switch colours'],
+      ['3d [on|off]', 'the desk, or just the terminal'],
+      ['view', 'zoom out to the desk and back'],
       ['history', 'commands you ran'],
       ['clear', 'clear the screen (Ctrl+L)'],
     ].map(([c, d]) => `<span class="c">${c}</span><span class="dim">${d}</span>`).join('')}</div>`
@@ -88,8 +90,8 @@
       kv('WM', 'sway'),
       kv('Tools', 'k9s, lazygit, kubectl'),
       ``,
-      ['--red', '--yellow', '--green', '--blue', '--purple', '--orange', '--fg']
-        .map((v) => `<span class="swatch" style="background:var(${v})"></span>`).join(''),
+      ['red', 'yellow', 'green', 'blue', 'purple', 'orange', 'fg']
+        .map((v) => `<span class="swatch sw-${v}"></span>`).join(''),
     ].map((l) => `<div>${l || '&nbsp;'}</div>`).join('')}</div></div>`,
 
     contact: () => [
@@ -147,6 +149,7 @@
       case 'date': return new Date().toString();
       case 'uptime': return uptime();
       case 'theme': return setTheme(args[0]);
+      case '3d': case 'view': case 'zoom': return threeD(cmd, args[0]);
       case 'history': return hist.map((h, i) => `<span class="dim">${String(i + 1).padStart(4)}</span>  ${esc(h)}`).join('\n') || '<span class="dim">no history yet</span>';
       case 'sudo':
         return `<span class="r">kobe is not in the sudoers file. This incident will be reported.</span>`;
@@ -176,7 +179,7 @@
   }
 
   const completions = ['help', 'whoami', 'ls', 'ls -l ~/projects', 'neofetch', 'cat contact.txt', 'contact', 'projects',
-    'theme', 'theme light', 'theme dark', 'history', 'clear', 'kubectl get nodes', 'kubectl get pods', 'echo', 'date', 'pwd', 'sudo', 'vim'];
+    'theme', 'theme light', 'theme dark', '3d', '3d on', '3d off', 'view', 'history', 'clear', 'kubectl get nodes', 'kubectl get pods', 'echo', 'date', 'pwd', 'sudo', 'vim'];
 
   /* ---------- rendering ---------- */
 
@@ -329,6 +332,25 @@
     exec(c);
     if (b.closest('.tabs')) screen.scrollTop = 0;
   }));
+
+  /* ---------- 3D (scene.js exposes window.KC3D) ---------- */
+
+  function threeD(cmd, arg) {
+    const k = window.KC3D;
+    if (!k || !k.supported) return '<span class="dim">3d: no WebGL in this browser, so it\'s terminal only.</span>';
+    if (cmd !== '3d') {
+      if (!k.active) return `<span class="dim">${cmd}: only works in 3D mode. Try</span> 3d on`;
+      setTimeout(() => k.toggleView(), 0);
+      return k.wide
+        ? '<span class="dim">back to the screen</span>'
+        : '<span class="dim">zooming out. Type</span> view <span class="dim">or click the screen to come back.</span>';
+    }
+    const on = arg === 'on' ? true : arg === 'off' ? false : !k.active;
+    if (on && !k.fits()) return '<span class="dim">3d: this window is too small for the desk. Make it bigger and try again.</span>';
+    if (on === k.active) return `<span class="dim">3d is already ${on ? 'on' : 'off'}.</span>`;
+    setTimeout(() => k.set(on), 0);
+    return `<span class="dim">3d ${on ? 'on' : 'off'}</span>`;
+  }
 
   /* ---------- theme ---------- */
 

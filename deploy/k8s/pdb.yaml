@@ -1,0 +1,9 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: kobecloud-web
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kobecloud-web

@@ -1,0 +1,34 @@
+# Works with any ingress controller. Set ingressClassName if your cluster has no
+# default class. With cert-manager, uncomment the annotation to get a TLS cert.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kobecloud-web
+  # annotations:
+  #   cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  # ingressClassName: traefik
+  tls:
+    - hosts: [kobecloud.be, www.kobecloud.be]
+      secretName: kobecloud-tls
+  rules:
+    - host: kobecloud.be
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kobecloud-web
+                port:
+                  name: http
+    - host: www.kobecloud.be
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kobecloud-web
+                port:
+                  name: http
