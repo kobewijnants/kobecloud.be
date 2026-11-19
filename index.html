@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kobe Wijnants · kobecloud</title>
+  <meta name="description" content="Kobe Wijnants: DevOps and cloud engineer from Belgium. Kubernetes, Terraform, Proxmox, Linux and the homelab that runs kobecloud.">
+  <meta name="author" content="Kobe Wijnants">
+  <meta name="theme-color" content="#0b0f14" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f5f3ec" media="(prefers-color-scheme: light)">
+  <link rel="canonical" href="https://kobecloud.be/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kobecloud.be/">
+  <meta property="og:title" content="Kobe Wijnants · kobecloud">
+  <meta property="og:description" content="DevOps and cloud engineer. Kubernetes, Terraform, Proxmox, Linux.">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <main class="term" id="term" aria-label="Terminal">
+    <header class="titlebar">
+      <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="title">kobe@kobecloud: ~</span>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle light and dark theme" title="Toggle theme (or type: theme)">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg>
+      </button>
+    </header>
+
+    <nav class="tabs" aria-label="Sections">
+      <button type="button" data-cmd="whoami">1:whoami</button>
+      <button type="button" data-cmd="ls -l ~/projects">2:projects</button>
+      <button type="button" data-cmd="neofetch">3:homelab</button>
+      <button type="button" data-cmd="cat contact.txt">4:contact</button>
+    </nav>
+
+    <section class="screen" id="screen">
+      <div class="out" id="out" aria-live="polite"></div>
+
+      <noscript>
+        <div class="out">
+          <p><b>Kobe Wijnants</b>, DevOps and cloud engineer from Belgium.</p>
+          <p>Kubernetes, Terraform, Proxmox, Google Cloud, Linux.</p>
+          <ul>
+            <li><a href="https://github.com/kobewijnants/homelab-infra">homelab-infra</a>: Kubernetes on Proxmox with Terraform and Talos</li>
+            <li><a href="https://github.com/kobewijnants/IP2-deployment">IP2-deployment</a>: GKE platform for four dev teams</li>
+            <li><a href="https://github.com/kobewijnants/IP1-deployment">IP1-deployment</a>: Google Cloud deployment in bash</li>
+            <li><a href="https://github.com/EliasDeHondt/K10s">K10s</a>: Kubernetes cluster visualiser</li>
+          </ul>
+          <p><a href="https://github.com/kobewijnants">GitHub</a> · <a href="https://linkedin.com/in/kobe-wijnants">LinkedIn</a></p>
+        </div>
+      </noscript>
+
+      <form class="prompt" id="prompt" autocomplete="off" hidden>
+        <label for="cmd"><span class="ps1"><span class="u">kobe</span><span class="dim">@</span><span class="h">kobecloud</span><span class="dim">:</span><span class="p">~</span><span class="dim">$</span></span></label>
+        <input id="cmd" name="cmd" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" enterkeyhint="go" aria-label="Type a command, or help">
+      </form>
+    </section>
+
+    <div class="chips" id="chips" aria-label="Quick commands">
+      <button type="button" data-cmd="help">help</button>
+      <button type="button" data-cmd="whoami">whoami</button>
+      <button type="button" data-cmd="ls -l ~/projects">projects</button>
+      <button type="button" data-cmd="neofetch">neofetch</button>
+      <button type="button" data-cmd="cat contact.txt">contact</button>
+      <button type="button" data-cmd="clear">clear</button>
+    </div>
+
+    <footer class="status" aria-hidden="true">
+      <span class="mode" id="mode">BOOT</span>
+      <span class="seg">⎇ main</span>
+      <span class="seg nodes"><i class="up"></i>alpha <i class="up"></i>beta</span>
+      <span class="spacer"></span>
+      <span class="seg hint" id="hint">press any key to skip</span>
+      <span class="seg" id="clock">--:--</span>
+    </footer>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
