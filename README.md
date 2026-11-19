@@ -63,13 +63,9 @@ docker compose up -d   # serves on :8080
 
 Put your reverse proxy in front of port 8080. The container runs as a non-root user with a read-only filesystem. `/healthz` returns `ok`.
 
-### GitHub Pages
-
-Pushing to `main` also deploys `public/` to GitHub Pages via `.github/workflows/pages.yml`. Keep it as a mirror or delete the workflow if the homelab is the only host.
-
 ### DNS
 
-Point `kobecloud.be` at whichever host serves it: your homelab's public IP or tunnel, or GitHub Pages (A records `185.199.108.153`–`185.199.111.153`, `www` CNAME to `kobewijnants.github.io`).
+Point `kobecloud.be` and `www.kobecloud.be` at the homelab: its public IP, or a tunnel (for example Cloudflare Tunnel) if you'd rather not open ports.
 
 ## License
 
